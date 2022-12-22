@@ -1,0 +1,137 @@
+Script:
+
+Pre-Requisite:
+- Create the Project and Register the App to create the config file shown below which needs to be copied to "index.js".
+- See sample config script in the "index.js" below.
+
+1) Check NodeJS version
+Syntax: node -v
+
+Sample Result:
+v19.3.0
+
+2) Initialize FireBase:
+Syntax: npm init -y
+
+3) Install FireBase SDK
+   Syntax: npm install firebase
+
+4) Install WebPack
+   Syntax: npm i webpack webpack-cli -D
+
+5) Create 'src' directory inside the main directory(e.g. "D:\TRAINING\FireBase\src")
+5.1. Create the index.js (e.g. D:\TRAINING\FireBase\src\index.js") and copy the config from Firebase Config similar script is shown below.)
+----------------------------------------------------------
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAITLrJqHYvVpDyVl8A4xtVhHXVYFvlmtw",
+  authDomain: "my2ndgswfbase.firebaseapp.com",
+  projectId: "my2ndgswfbase",
+  storageBucket: "my2ndgswfbase.appspot.com",
+  messagingSenderId: "753024335632",
+  appId: "1:753024335632:web:3cabd0d546d0f527f92f95",
+  measurementId: "G-B8T680XGYP"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+----------------------------------------------------------
+
+5.2. Create the webpack.config.js in the main directory  ("e.g. D:\TRAINING\FireBase\webpack.config.js") 
+     with similar script is shown below: 
+----------------------------------------------------------
+const path = require('path');
+
+module.exports = {
+    mode: 'development',
+    devtool: 'eval-source-map',
+    entry: './src/index.js',
+    output: {
+        path: path.resolve(__dirname,'dist'),
+        filename: 'bundle.js'
+    }
+}
+----------------------------------------------------------
+Note: index.js should be prefix with directory '.src/'
+
+6) Modify the package.jason to add the build script just below the test as per below:
+----------------------------------------------------------
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^9.15.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
+----------------------------------------------------------
+Note:
+* build script should be: "build": "webpack" without the "node_modules/.bin/" as this is no longer needed.
+* index.js should NOT HAVE a prefix directory.
+  
+7) Run the Build script in in the main directory: 
+   Syntax: npm run build
+
+   Note: Successful build will create the "bundle.js" in "D:\TRAINING\FireBase\dist\" folder.
+
+8) Modify the index.js in the src folder and add in the script at the bottom:
+   console.log(app)
+
+9) Create the "index.html" in the "D:\TRAINING\FireBase\dist\" folder.
+   * type "!"- exclamation mark at the beginning of the script and wait for the popup to appear 
+     and press enter to create the similar script below.
+   * change the "Document" text inside the title with "GettingStartedwithFireBase"
+   * add the script tag to add in the "bundle.js" file.
+----------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GettingStartedwithFireBase</title>
+    <script src="./bundle.js"></script>
+</head>
+<body>
+    
+</body>
+</html>
+----------------------------------------------------------
+   
+10 ) Run Build again : npm run build
+
+11) Go back to the VS code and highlight the "index.html" file and copy its path.
+12) Open a browser e.g.Edge and paste the path/url to open up the page.
+
+13) Initialize the GIT.
+    Syntax: git init
+
+14) Add the script files.
+    Syntax: git add .
+
+
+
+
+
+
+
